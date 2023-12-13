@@ -1,3 +1,4 @@
+import random
 """Hyperskill Bill-Splitter project implementation"""
 
 
@@ -16,9 +17,20 @@ def get_friends_list():
     return friends
 
 
-def split_bill(friends):
+def who_s_lucky(friends):
+    """Get the name of the lucky friend."""
+    lucky_one = None
+    enable_lucky = input('Do you want to use the "Who is lucky?" feature? Write Yes/No:')
+    if enable_lucky == "Yes":
+        lucky_one = random.choice(list(friends.keys()))
+        print(f"{lucky_one} is the lucky one!")
+    else:
+        print("No one is going to be lucky")
+    return lucky_one
+
+
+def split_bill(bill, friends):
     """Compute de bill's fraction for each friend and update the dictionary."""
-    bill = float(input("Enter the total bill value:"))
     split_amount = round(bill / len(friends), 2)
     for name, amount in friends.items():
         friends[name] = split_amount
@@ -30,8 +42,8 @@ def main():
     if len(friends) <= 0:
         print("No one is joining for the party")
     else:
-        split_bill(friends)
-        print(friends)
+        float(input("Enter the total bill value:"))
+        who_s_lucky(friends)
 
 
 if __name__ == "__main__":
