@@ -29,9 +29,9 @@ def who_s_lucky(friends):
     return lucky_one
 
 
-def split_bill(bill, friends):
-    """Compute de bill's fraction for each friend and update the dictionary."""
-    split_amount = round(bill / len(friends), 2)
+def split_bill(friends, total, shares_count):
+    """Split the bill and assign the corresponding amount to each friend"""
+    split_amount = round(total / shares_count, 2)
     for name, amount in friends.items():
         friends[name] = split_amount
 
@@ -42,9 +42,15 @@ def main():
     if len(friends) <= 0:
         print("No one is joining for the party")
     else:
-        float(input("Enter the total bill value:"))
-        who_s_lucky(friends)
+        bill = float(input("Enter the total bill value:"))
+        lucky_one = who_s_lucky(friends)
+        if lucky_one is None:
+            split_bill(friends, bill, len(friends))
+        else:
+            split_bill(friends, bill, len(friends) - 1)
+            friends[lucky_one] = 0
 
+        print(friends)
 
 if __name__ == "__main__":
     main()
